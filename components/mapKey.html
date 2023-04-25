@@ -1,0 +1,195 @@
+<!DOCTYPE html><html><head><title>為什麼要使用 key 值</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script><script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone/babel.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.min.js" integrity="sha512-1/8Tj23BRrWnKZXeBruk6wTnsMJbi/lJsk9bsRgVwb6j5q39n0A00gFjbCTaDo5l5XrPVv4DZXftrJExhRF/Ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">為什麼要使用 key 值</h1><small>檔名：<code>mapKey.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<div id="root"></div>
+<script type="text/babel">
+  const App = () => {
+  const originProducts = [
+    {
+      id: 1,
+      title: '編號一：價格 100',
+      price: 100,
+    },
+    {
+      id: 2,
+      title: '編號二：價格 100',
+      price: 100,
+    },
+    {
+      id: 3,
+      title: '編號三：價格 200',
+      price: 200,
+    },
+  ];
+  const [products, setProducts] = React.useState(originProducts)
+
+  const handleDoublePrice = () => {
+    const productByDoublePrice = products.map(item => ({...item, price: item.price * 2}));
+    setProducts(productByDoublePrice);
+    console.log(productByDoublePrice);
+  }
+
+  const handleNewProduct = () => {
+    const newProducts = [{
+      id: new Date().getTime(),
+      title: '新增項目：價格 300',
+      price: 300,
+    }, ...products]
+    setProducts(newProducts);
+    console.log('handleNewProduct', newProducts);
+  }
+
+  return (
+    <>
+      <h3>案例一：當 key 不是唯一值時</h3>
+      {/* 當 key 不是唯一值時 */}
+      {
+        products.map((product, index) => {
+          return <div key={product.price}>{product.title} {product.price}
+            <input type="text" />
+          </div>
+        })
+      }
+      <button type="button" onClick={handleDoublePrice}>雙倍金額</button>
+      
+      <h3>案例二：當 key 為陣列索引時</h3>
+      {/* 當 key 為陣列索引時*/}
+      {JSON.stringify(products)}
+      {/*
+        products.map((product, index) => {
+          return <div key={index}>{product.title} {product.price}
+            <input type="text" />
+          </div>
+        })
+      */}
+      <button type="button" onClick={handleNewProduct}>新增</button>
+
+      <h3>建議：key 為唯一值</h3>
+      {/*
+        products.map((product, index) => {
+          return <div key={product.id}>{product.title} {product.price}
+            <input type="text" />
+          </div>
+        })
+      */}
+    </>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root'))
+  .render(<App/>)
+</script>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  
+  <div class="list-group">
+  
+    <a href="/components/intro.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      為什麼要用元件
+    </a>
+  
+    <a href="/components/createLayout.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      版型建立
+    </a>
+  
+    <a href="/components/createComponent.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      建立元件
+    </a>
+  
+    <a href="/components/propsDestructuring.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      資料解構
+    </a>
+  
+    <a href="/components/dataMap.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      使用資料驅動元件
+    </a>
+  
+    <a href="/components/mapKey.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      為什麼要使用 key 值
+    </a>
+  
+    <a href="/components/nestComponent.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      巢狀元件
+    </a>
+  
+    <a href="/components/componentFinal.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      元件章節挑戰
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/10/31</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">React 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 React</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/components/intro.html">元件基礎</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/hooks/startHooks.html">Hooks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/form/basicForm.html">表單</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/hooksAdv/lifeCycle.html">Hooks 進階</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 React 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</body>
+</html>

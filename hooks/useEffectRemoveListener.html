@@ -1,0 +1,228 @@
+<!DOCTYPE html><html><head><title>useEffect 移除監聽</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script><script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script><script src="https://unpkg.com/@babel/standalone/babel.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.min.js" integrity="sha512-1/8Tj23BRrWnKZXeBruk6wTnsMJbi/lJsk9bsRgVwb6j5q39n0A00gFjbCTaDo5l5XrPVv4DZXftrJExhRF/Ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">useEffect 移除監聽</h1><small>檔名：<code>useEffectRemoveListener.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<!--  -->
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+const api = 'https://api.unsplash.com/search/photos/';
+const accessKey = 'GAvxZ9VesndxTx_9NftqgOtZffnTB0YhfGiWGDJA-bs';
+
+const Card = ({item}) => {
+  return <div className="card">
+    <img className="card-img img-cover" width="100%" height="400"
+    src={`${item.urls.raw}&w=600&q=80`} alt="" />
+  </div>
+}
+
+const SearchBox = ({onSearchHandler, filterString}) => {
+  return <div>
+    <label htmlFor="filter">搜尋</label>
+    <input type="text" id="filter" className="form-control"
+      value={filterString}
+      onChange={onSearchHandler}
+    />
+  </div>
+}
+
+let currentPage = 1;
+const App = () => {
+  const [filterString, setFilterString] = useState('animal');
+  const [jsonData, setJsonData] = useState([]);
+  const onSearchHandler = (e) => {
+    setFilterString(e.target.value);
+  }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // 搜尋特定需要加入 query
+        const result = await axios.get(`${api}?client_id=${accessKey}&query=${filterString}`);
+        console.log(result);
+        setJsonData(result.data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [])
+  
+  return (<div>
+    <SearchBox onSearchHandler={onSearchHandler} filterString={filterString} />
+    <div className='row row-cols-2 g-3'>
+      { jsonData.map((item) => 
+        <div className="col" key={item.id}>
+          <Card item={item} />
+        </div>
+      )}
+    </div>
+  </div>)
+}
+
+ReactDOM.createRoot(document.querySelector('#root'))
+  .render(<App/>)
+</script>
+
+
+<style>
+  /* CSS 樣式，可以確保圖片不要變形 */
+  .img-cover {
+    object-fit: cover;
+  }
+</style>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  
+  <div class="list-group">
+  
+    <a href="/hooks/startHooks.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      開始使用 Hook
+    </a>
+  
+    <a href="/hooks/inputUseState.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      input 綁定 useState
+    </a>
+  
+    <a href="/hooks/aboutUseState.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關於 useState
+    </a>
+  
+    <a href="/hooks/aboutUseState2.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關於 useState 2
+    </a>
+  
+    <a href="/hooks/inputComponent.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      input 元件化
+    </a>
+  
+    <a href="/hooks/useEffectIntro.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      useEffect 基礎介紹
+    </a>
+  
+    <a href="/hooks/useEffectLifeCycle.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      useEffect 生命週期及非同步
+    </a>
+  
+    <a href="/hooks/asyncList.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      非同步的列表呈現
+    </a>
+  
+    <a href="/hooks/useStateCallback.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      useState 的前一個狀態
+    </a>
+  
+    <a href="/hooks/bootstrapComponent.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Bootstrap 元件與 React
+    </a>
+  
+    <a href="/hooks/useRef.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      useRef
+    </a>
+  
+    <a href="/hooks/useEffectRemoveListener.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      useEffect 移除監聽
+    </a>
+  
+    <a href="/hooks/unsplashApi.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Unsplash API 挑戰
+    </a>
+  
+    <a href="/hooks/unsplashApiComplete.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Unsplash API 完成
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/10/31</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">React 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 React</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/intro.html">元件基礎</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/hooks/startHooks.html">Hooks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/form/basicForm.html">表單</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/hooksAdv/lifeCycle.html">Hooks 進階</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 React 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</body>
+</html>
